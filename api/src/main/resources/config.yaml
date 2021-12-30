@@ -1,0 +1,34 @@
+kumuluzee:
+  name: rekviziti-service
+  env:
+    name: dev
+  version: 1.0.0
+  server:
+    base-url: http://localhost:8085
+    http:
+      port: 8085
+  datasources:
+    - jndi-name: jdbc/RekvizitiMetadataDS
+      connection-url: jdbc:postgresql://rekviziti-db.postgres.database.azure.com:5432/postgres?user=postgresAdmin&sslmode=require
+      username: postgresAdmin
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/RekvizitiMetadataDS
+    metrics:
+      web-instrumentation:
+        - name: rekviziti-endpoint
+          url-pattern: /v1/rekviziti/*
+  rest-client:
+    registrations:
+      - class: rekviziti-processing-api
+        url: http://localhost:8085/v1
+        read-timeout: 5000
+rest-properties:
+  maintenance-mode: false
+  broken: false
+app-properties:
+  amazon-rekognition:
+    access-key:
+    secret-key:
