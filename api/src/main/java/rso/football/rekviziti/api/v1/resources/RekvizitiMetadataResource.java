@@ -37,10 +37,10 @@ public class RekvizitiMetadataResource {
     }
 
     @GET
-    @Path("/skupna")
-    public Response getSkupnaCena() {
+    @Path("/cena/{trenerMetadataId}")
+    public Response getCenaTrener(@PathParam("trenerMetadataId") Integer trenerMetadataId) {
 
-        List<RekvizitiMetadata> rekvizitiMetadata = rekvizitiMetadataBean.getRekvizitiMetadataFilter(uriInfo);
+        List<RekvizitiMetadata> rekvizitiMetadata = rekvizitiMetadataBean.getRekvizitiTrenerjaMetadata(trenerMetadataId);
         Integer skupnaCena = 0;
         for (RekvizitiMetadata r : rekvizitiMetadata){
             skupnaCena += r.getCost();

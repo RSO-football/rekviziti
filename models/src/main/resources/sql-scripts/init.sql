@@ -1,2 +1,2 @@
-INSERT INTO rekviziti_metadata (type, cost) VALUES ('Shirt', 50);
-INSERT INTO rekviziti_metadata (type, cost) VALUES ('Scarf', 30);
+INSERT INTO rekviziti_metadata (type, cost, trenerId) VALUES ('Shirt', 50, 1);
+INSERT INTO rekviziti_metadata (type, cost, trenerId) VALUES ('Scarf', 30, 2);

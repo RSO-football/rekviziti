@@ -5,6 +5,7 @@ public class RekvizitiMetadata {
     private Integer rekvizitId;
     private String type;
     private Integer cost;
+    private Integer trenerId;
 
     public Integer getRekvizitId() {
         return rekvizitId;
@@ -24,6 +25,14 @@ public class RekvizitiMetadata {
 
     public Integer getCost() {
         return cost;
+    }
+
+    public Integer getTrenerId() {
+        return trenerId;
+    }
+
+    public void setTrenerId(Integer trenerId) {
+        this.trenerId = trenerId;
     }
 
     public void setCost(Integer cost) {

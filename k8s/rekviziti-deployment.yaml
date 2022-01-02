@@ -13,13 +13,14 @@ spec:
         app: rekviziti
     spec:
       containers:
-        - image: ts4894/rekviziti:2021-12-21-23-54-34
+        - image: ts4894/rekviziti:2022-01-02-18-25-14
           name: rekviziti
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://rekviziti-db.postgres.database.azure.com:5432/postgres?user=postgresAdmin&password=RekvizitiDBPass123&sslmode=require
-            - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: postgresAdmin
+              valueFrom:
+                secretKeyRef:
+                  name: pg-pas-rekviziti
+                  key: password
           ports:
             - containerPort: 8085
               name: server

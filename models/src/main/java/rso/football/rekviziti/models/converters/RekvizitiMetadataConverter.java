@@ -11,6 +11,7 @@ public class RekvizitiMetadataConverter {
         dto.setRekvizitId(entity.getId());
         dto.setType(entity.getType());
         dto.setCost(entity.getCost());
+        dto.setTrenerId(entity.getTrenerId());
 
         return dto;
     }
@@ -20,6 +21,7 @@ public class RekvizitiMetadataConverter {
         RekvizitiMetadataEntity entity = new RekvizitiMetadataEntity();
         entity.setType(dto.getType());
         entity.setCost(dto.getCost());
+        entity.setTrenerId(dto.getTrenerId());
 
         return entity;
     }

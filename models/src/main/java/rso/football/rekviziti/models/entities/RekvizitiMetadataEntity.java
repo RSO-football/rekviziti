@@ -7,7 +7,9 @@ import javax.persistence.*;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "RekvizitiMetadataEntity.getAll",
-                        query = "SELECT rekvizit FROM RekvizitiMetadataEntity rekvizit")
+                        query = "SELECT rekvizit FROM RekvizitiMetadataEntity rekvizit"),
+                @NamedQuery(name = "RekvizitiMetadataEntity.getAllTrener",
+                        query = "SELECT rekvizit FROM RekvizitiMetadataEntity rekvizit WHERE rekvizit.trenerId = ?1")
         })
 public class RekvizitiMetadataEntity {
 
@@ -20,6 +22,9 @@ public class RekvizitiMetadataEntity {
 
     @Column(name = "cost")
     private Integer cost;
+
+    @Column(name = "trenerId")
+    private Integer trenerId;
 
     public Integer getId() {
         return id;
@@ -43,5 +48,13 @@ public class RekvizitiMetadataEntity {
 
     public void setCost(Integer cost) {
         this.cost = cost;
+    }
+
+    public Integer getTrenerId() {
+        return trenerId;
+    }
+
+    public void setTrenerId(Integer trenerId) {
+        this.trenerId = trenerId;
     }
 }

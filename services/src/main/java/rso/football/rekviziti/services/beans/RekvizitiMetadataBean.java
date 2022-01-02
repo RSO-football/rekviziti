@@ -35,6 +35,18 @@ public class RekvizitiMetadataBean {
 
     }
 
+
+    public List<RekvizitiMetadata> getRekvizitiTrenerjaMetadata(Integer trenerMetadataId) {
+        TypedQuery<RekvizitiMetadataEntity> query = em.createNamedQuery(
+                "RekvizitiMetadataEntity.getAllTrener", RekvizitiMetadataEntity.class);
+        query.setParameter(1, trenerMetadataId);
+
+        List<RekvizitiMetadataEntity> resultList = query.getResultList();
+
+        return resultList.stream().map(RekvizitiMetadataConverter::toDto).collect(Collectors.toList());
+
+    }
+
     public List<RekvizitiMetadata> getRekvizitiMetadataFilter(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
