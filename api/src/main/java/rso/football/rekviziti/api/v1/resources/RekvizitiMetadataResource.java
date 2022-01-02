@@ -1,5 +1,6 @@
 package rso.football.rekviziti.api.v1.resources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import rso.football.rekviziti.lib.RekvizitiMetadata;
 import rso.football.rekviziti.services.beans.RekvizitiMetadataBean;
 
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 @Path("/rekviziti")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, DELETE, PUT, HEAD, OPTIONS")
 public class RekvizitiMetadataResource {
 
     private Logger log = Logger.getLogger(RekvizitiMetadataResource.class.getName());
