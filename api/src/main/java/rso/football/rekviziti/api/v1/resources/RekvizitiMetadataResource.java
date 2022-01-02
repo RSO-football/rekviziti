@@ -37,6 +37,18 @@ public class RekvizitiMetadataResource {
     }
 
     @GET
+    @Path("/skupna")
+    public Response getSkupnaCena() {
+
+        List<RekvizitiMetadata> rekvizitiMetadata = rekvizitiMetadataBean.getRekvizitiMetadataFilter(uriInfo);
+        Integer skupnaCena = 0;
+        for (RekvizitiMetadata r : rekvizitiMetadata){
+            skupnaCena += r.getCost();
+        }
+        return Response.status(Response.Status.OK).entity(skupnaCena).build();
+    }
+
+    @GET
     @Path("/{rekvizitiMetadataId}")
     public Response getImageMetadata(@PathParam("rekvizitiMetadataId") Integer rekvizitiMetadataId) {
 

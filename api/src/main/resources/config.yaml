@@ -9,7 +9,7 @@ kumuluzee:
       port: 8085
   datasources:
     - jndi-name: jdbc/RekvizitiMetadataDS
-      connection-url: jdbc:postgresql://rekviziti-db.postgres.database.azure.com:5432/postgres?user=postgresAdmin&sslmode=require
+      connection-url: jdbc:postgresql://rekviziti-db.postgres.database.azure.com:5432/postgres?user=postgresAdmin&password=RekvizitiDBPass123&sslmode=require
       username: postgresAdmin
   health:
     checks:

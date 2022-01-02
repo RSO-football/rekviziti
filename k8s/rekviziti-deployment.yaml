@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rekviziti-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rekviziti
+  template:
+    metadata:
+      labels:
+        app: rekviziti
+    spec:
+      containers:
+        - image: ts4894/rekviziti:2021-12-21-23-54-34
+          name: rekviziti
+          env:
+            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+              value: jdbc:postgresql://rekviziti-db.postgres.database.azure.com:5432/postgres?user=postgresAdmin&password=RekvizitiDBPass123&sslmode=require
+            - name: KUMULUZEE_DATASOURCES0_USERNAME
+              value: postgresAdmin
+          ports:
+            - containerPort: 8085
+              name: server
+              protocol: TCP
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rekviziti
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8085
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: rekviziti
