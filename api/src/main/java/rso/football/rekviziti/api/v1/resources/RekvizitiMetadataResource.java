@@ -76,7 +76,7 @@ public class RekvizitiMetadataResource {
             }
         }
 
-        return Response.status(Response.Status.CONFLICT).entity(rekvizitiMetadata).build();
+        return Response.status(Response.Status.CREATED).entity(rekvizitiMetadata).build();
 
     }
 
