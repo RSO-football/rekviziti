@@ -71,6 +71,9 @@ public class RekvizitiMetadataResource {
         }
         else {
             rekvizitiMetadata = rekvizitiMetadataBean.createRekvizitiMetadata(rekvizitiMetadata);
+            if (rekvizitiMetadata == null){
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
         }
 
         return Response.status(Response.Status.CONFLICT).entity(rekvizitiMetadata).build();
@@ -88,7 +91,7 @@ public class RekvizitiMetadataResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        return Response.status(Response.Status.NOT_MODIFIED).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
 
     }
 

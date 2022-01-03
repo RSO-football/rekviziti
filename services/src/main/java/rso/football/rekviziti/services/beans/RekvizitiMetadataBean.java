@@ -1,20 +1,29 @@
 package rso.football.rekviziti.services.beans;
 
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import rso.football.rekviziti.lib.RekvizitiMetadata;
 import rso.football.rekviziti.models.converters.RekvizitiMetadataConverter;
 import rso.football.rekviziti.models.entities.RekvizitiMetadataEntity;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.UriInfo;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.ws.rs.client.Client;
 
 @RequestScoped
 public class RekvizitiMetadataBean {
@@ -23,6 +32,18 @@ public class RekvizitiMetadataBean {
 
     @Inject
     private EntityManager em;
+
+    private Client httpClient;
+    private String baseUrlUporabniki;
+
+    @PostConstruct
+    private void init() {
+        String uniqueID = UUID.randomUUID().toString();
+        log.info("Inicializacija zrna: " + RekvizitiMetadataBean.class.getSimpleName() + " id: " + uniqueID);
+
+        httpClient = ClientBuilder.newClient();
+        baseUrlUporabniki = ConfigurationUtil.getInstance().get("uporabniki-storitev.url").orElse("http://localhost:8083/");
+    }
 
     public List<RekvizitiMetadata> getRekvizitiMetadata() {
 
@@ -69,9 +90,31 @@ public class RekvizitiMetadataBean {
         return rekvizitiMetadata;
     }
 
+    public String getTrenerjiId(){
+        String url = baseUrlUporabniki + "v1/uporabniki/trenerjiId";
+        log.info("url je " + url);
+
+        try {
+            return httpClient
+                    .target(url)
+                    .request().get(String.class);
+        } catch (WebApplicationException | ProcessingException e){
+            throw new InternalServerErrorException(e);
+        }
+    }
+
     public RekvizitiMetadata createRekvizitiMetadata(RekvizitiMetadata rekvizitiMetadata) {
 
         RekvizitiMetadataEntity rekvizitiMetadataEntity = RekvizitiMetadataConverter.toEntity(rekvizitiMetadata);
+
+        String trenerjiString = getTrenerjiId();
+        List<Integer> trenerjiId = Arrays.stream(trenerjiString.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+
+        System.out.println(trenerjiString);
+
+        if (!trenerjiId.contains(rekvizitiMetadataEntity.getTrenerId())){
+            return null;
+        }
 
         try {
             beginTx();
