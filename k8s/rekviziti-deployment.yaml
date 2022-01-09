@@ -13,7 +13,7 @@ spec:
         app: rekviziti
     spec:
       containers:
-        - image: ts4894/rekviziti:2022-01-03-23-11-49
+        - image: ts4894/rekviziti:2022-01-09-20-21-08
           name: rekviziti
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL

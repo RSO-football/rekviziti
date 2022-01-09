@@ -14,7 +14,7 @@ import javax.ws.rs.core.Application;
 @OpenAPIDefinition(info = @Info(title = "Rekviziti API", version = "v1",
         contact = @Contact(email = "rb2600@student.uni-lj.si"),
         license = @License(name = "dev"), description = "API for managing rekviziti metadata."),
-        servers = @Server(url = "http://localhost:8085/"))
+        servers = @Server(url = "http://20.88.176.138:8085/"))
 @ApplicationPath("/v1")
 public class RekvizitiMetadataApplication extends Application {
 }
