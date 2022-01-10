@@ -42,7 +42,7 @@ public class RekvizitiMetadataBean {
         log.info("Inicializacija zrna: " + RekvizitiMetadataBean.class.getSimpleName() + " id: " + uniqueID);
 
         httpClient = ClientBuilder.newClient();
-        baseUrlUporabniki = ConfigurationUtil.getInstance().get("uporabniki-storitev.url").orElse("http://localhost:8083/");
+        baseUrlUporabniki = ConfigurationUtil.getInstance().get("uporabniki-storitev.url").orElse("https://localhost:8083/");
     }
 
     public List<RekvizitiMetadata> getRekvizitiMetadata() {
